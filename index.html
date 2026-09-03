@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Visualization · Student Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: #f0f4f9;
+            color: #162b3a;
+            line-height: 1.6;
+            padding: 2rem 1.2rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 40px;
+            box-shadow: 0 25px 60px rgba(0, 20, 40, 0.10);
+            padding: 2.6rem 3rem;
+            transition: all 0.2s;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #e6edf6;
+            color: #1d4e6f;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 1.2rem 0.3rem 1rem;
+            border-radius: 60px;
+            margin-bottom: 0.6rem;
+            border: 1px solid #c4d7e8;
+        }
+        .badge span {
+            background: #1d4e6f;
+            color: white;
+            border-radius: 30px;
+            padding: 0.1rem 0.6rem;
+            font-size: 0.6rem;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #0b2b3f;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem 1rem;
+            margin-bottom: 0.2rem;
+        }
+        h1 .viz-tag {
+            background: #1d6f9c;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.2rem 1.2rem;
+            border-radius: 60px;
+            letter-spacing: 0.3px;
+        }
+        .subhead {
+            font-size: 1.1rem;
+            color: #2e5a77;
+            background: #f0f7fe;
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin: 0.2rem 0 1.8rem 0;
+            border-left: 4px solid #2d7da3;
+        }
+        .meta-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 2.5rem;
+            background: #eaf2f9;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            margin-bottom: 2.2rem;
+            font-weight: 500;
+            color: #1a4b66;
+            border: 1px solid #d2e2ee;
+        }
+        .meta-grid span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .meta-grid i {
+            font-style: normal;
+            background: #c6d9e9;
+            width: 28px;
+            height: 28px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #c0d6e6, #e5eef7);
+            margin: 2.2rem 0;
+        }
+        h2 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin: 2rem 0 0.8rem 0;
+            color: #0a334a;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        h2 .pill {
+            background: #dce9f3;
+            padding: 0.1rem 1rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1d5c7e;
+        }
+        h3 {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 1.8rem 0 0.6rem 0;
+            color: #124a66;
+        }
+        h4 {
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 1.2rem 0 0.2rem 0;
+            color: #1e5c7a;
+        }
+        ul,
+        ol {
+            padding-left: 1.6rem;
+            margin: 0.5rem 0 1rem 0;
+        }
+        li {
+            margin-bottom: 0.3rem;
+        }
+        .highlight-box {
+            background: #e5f0f9;
+            border-radius: 24px;
+            padding: 1.2rem 1.8rem;
+            margin: 1.8rem 0;
+            border-left: 6px solid #1f6d97;
+            box-shadow: 0 2px 8px rgba(0, 30, 50, 0.03);
+        }
+        .highlight-box strong {
+            color: #003757;
+        }
+        .card-activity {
+            background: #fafdff;
+            border: 1px solid #dde9f2;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 14px rgba(0, 20, 30, 0.02);
+            transition: 0.1s;
+            border-left: 4px solid transparent;
+        }
+        .card-activity:hover {
+            border-left-color: #2d7da3;
+            background: #f8fcff;
+        }
+        .card-activity h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .card-activity .act-tag {
+            background: #bbd7eb;
+            padding: 0.1rem 0.9rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #003a57;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 1rem 0 1.5rem 0;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 20, 30, 0.04);
+        }
+        th {
+            background: #dce9f2;
+            color: #002b42;
+            font-weight: 600;
+            padding: 0.7rem 0.9rem;
+            text-align: left;
+        }
+        td {
+            background: white;
+            padding: 0.7rem 0.9rem;
+            border-bottom: 1px solid #e5edf4;
+        }
+        tr:last-child td {
+            border-bottom: 0;
+        }
+        .footnote {
+            font-size: 0.9rem;
+            color: #2a5a77;
+            background: #eef5fb;
+            padding: 0.8rem 1.6rem;
+            border-radius: 60px;
+            margin-top: 2rem;
+            border: 1px solid #cfe0ed;
+        }
+        .data-box {
+            background: #f6faff;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            border: 1px solid #dce8f2;
+            margin: 0.8rem 0 1.2rem 0;
+            overflow-x: auto;
+        }
+        .data-box table {
+            box-shadow: none;
+            margin: 0.2rem 0;
+        }
+        .data-box table th {
+            background: #e3eef7;
+        }
+        .question-box {
+            background: #fafdff;
+            border-radius: 20px;
+            padding: 1rem 1.6rem;
+            border-left: 5px solid #1d6f9c;
+            margin: 0.8rem 0;
+        }
+        .question-box strong {
+            color: #003757;
+        }
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 1.5rem 0;
+        }
+        .chart-card {
+            background: #f6faff;
+            border-radius: 18px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #dce8f2;
+            text-align: center;
+            transition: 0.15s;
+        }
+        .chart-card:hover {
+            border-color: #8fb8d4;
+            background: #fafdff;
+            transform: translateY(-2px);
+        }
+        .chart-card .emoji {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        .chart-card strong {
+            color: #003757;
+            display: block;
+            font-size: 0.95rem;
+        }
+        .chart-card small {
+            color: #3e6b87;
+            font-size: 0.8rem;
+        }
+
+        /* ---- image container style ---- */
+        .map-container {
+            background: #f6faff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid #dce8f2;
+            margin: 1rem 0;
+        }
+        .map-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 0.5rem 0;
+        }
+        .map-container .caption {
+            font-size: 0.9rem;
+            color: #3e6b87;
+        }
+        .map-container .story-block {
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 1.4rem;
+            margin: 0.8rem 0;
+            border-left: 4px solid #1d6f9c;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        .map-container .story-block strong {
+            color: #003757;
+        }
+
+        /* ---- comparison table style ---- */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 0.8rem 0;
+        }
+        .comparison-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 1.4rem;
+            border: 1px solid #dce8f2;
+        }
+        .comparison-card h4 {
+            margin-top: 0;
+        }
+        .comparison-card ul {
+            margin: 0.3rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        .comparison-card li {
+            margin-bottom: 0.2rem;
+        }
+        .comparison-card.table-card {
+            border-left: 4px solid #1d6f9c;
+        }
+        .comparison-card.chart-card {
+            border-left: 4px solid #f5a623;
+        }
+
+        /* ---- principles grid ---- */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 0.8rem 0;
+        }
+        .principle-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #dce8f2;
+            text-align: center;
+        }
+        .principle-card .emoji {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        .principle-card strong {
+            color: #003757;
+            display: block;
+            font-size: 0.95rem;
+        }
+        .principle-card small {
+            color: #3e6b87;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .meta-grid {
+                border-radius: 30px;
+            }
+            .chart-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .principles-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- badge -->
+        <div class="badge">
+            <span>📊</span> data visualization · storytelling <span>grade 11</span>
+        </div>
+
+        <h1>
+            Visualizing Data
+            <span class="viz-tag">2 hours</span>
+        </h1>
+        <div class="subhead">
+            🎯 Collect · analyse · visualise · tell a story
+        </div>
+
+        <!-- meta -->
+        <div class="meta-grid">
+            <span><i>🎯</i> Explain principles of data visualization</span>
+            <span><i>📊</i> Choose appropriate chart types</span>
+            <span><i>📖</i> Tell stories with data</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 1. WHAT IS DATA VISUALIZATION?                               -->
+        <!-- ============================================================ -->
+        <h2>
+            📊 What is data visualization?
+            <span class="pill">core idea</span>
+        </h2>
+        <p style="font-size: 1.05rem;">
+            <strong>Data visualization</strong> is the process of transforming data into <strong>diagrams, charts, or graphs</strong> that make information easy to understand, accurate, clear, and engaging.
+        </p>
+
+        <div class="highlight-box">
+            <strong>🌟 Why visualise data?</strong><br>
+            • <strong>Understand</strong> complex patterns quickly<br>
+            • <strong>Communicate</strong> insights to others clearly<br>
+            • <strong>Persuade</strong> with evidence and clarity<br>
+            • <strong>Discover</strong> trends and outliers you might miss in raw numbers
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 2. CHART TYPES – REFERENCE                                   -->
+        <!-- ============================================================ -->
+        <h2>
+            📈 Chart types
+            <span class="pill">choose wisely</span>
+        </h2>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <span class="emoji">🥧</span>
+                <strong>Pie Chart</strong>
+                <small>Show parts of a whole (percentages). Best for 3–5 categories.</small>
+            </div>
+            <div class="chart-card">
+                <span class="emoji">📊</span>
+                <strong>Bar Chart</strong>
+                <small>Compare categories. Easy to read — great for ranking.</small>
+            </div>
+            <div class="chart-card">
+                <span class="emoji">📈</span>
+                <strong>Line Graph</strong>
+                <small>Show trends over time. Continuous data.</small>
+            </div>
+            <div class="chart-card">
+                <span class="emoji">🔵</span>
+                <strong>Scatter Plot</strong>
+                <small>Show relationship between two variables. Look for correlation.</small>
+            </div>
+        </div>
+
+        <div style="background:#e6f0f7; padding: 1rem 1.6rem; border-radius: 24px; margin: 1rem 0;">
+            <strong>📌 Quick guide:</strong>
+            <ul style="margin-top:0.3rem;">
+                <li><strong>Compare categories</strong> → Bar chart</li>
+                <li><strong>Show parts of a whole</strong> → Pie chart (only if few categories!)</li>
+                <li><strong>Show change over time</strong> → Line graph</li>
+                <li><strong>Show relationship between variables</strong> → Scatter plot</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <!-- ============================================================ -->
+        <!-- 3. ACTIVITIES                                                -->
+        <!-- ============================================================ -->
+        <h2>
+            📋 Activities
+            <span class="pill">learn by doing</span>
+        </h2>
+
+        <!-- ============================================================ -->
+        <!-- ACTIVITY 9.1 – with the map image now INSIDE the activity    -->
+        <!-- ============================================================ -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.1</span>
+                Hook – “What story does this map tell?”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">10 min</span>
+            </h4>
+
+            <!-- MAP IMAGE – now correctly placed inside Activity 9.1 -->
+            <div class="map-container">
+                <h4 style="margin-top:0; font-size:1rem;">🗺️ New York City Running Map</h4>
+                <img src="https://lh3.googleusercontent.com/M9aO1D-D2N_t4n-RRzmeaGdb2OswmCMyQQk4Dg9hAfbxmesoONeWTaFTSDSIl8LROPXXMbGp30onmRbjoIWnsVUKjQLGuDiEKwOqI6UKvj1rZfQoFVhgt7koOzS5ILwxpg" 
+                     alt="Map showing running routes in Central Park, New York" />
+                <p class="caption">
+                    <strong>💡 Think like:</strong> 🚦 “If you were a traffic officer, how would you use this map?” 
+                    · 🍜 “If you owned a Thai restaurant, how would you use this map to plan?”
+                </p>
+
+                <!-- Traffic Officer Story -->
+                <div class="story-block">
+                    <strong>🚦 Traffic Officer's Perspective:</strong>
+                    <p style="margin-top:0.3rem;">A traffic police officer in New York City could use this running map as a powerful tool for improving road safety and managing traffic flow. The darker lines on the map indicate areas with high runner traffic, which also means these are locations with heavy pedestrian activity. The officer would focus on intersections along these busy running routes, identifying where runners and vehicles frequently cross paths. By understanding these patterns, the officer could deploy additional personnel during peak running hours—typically early mornings and evenings—to help direct traffic and ensure pedestrian safety. The map also helps in planning for road closures during major running events like marathons, allowing the officer to anticipate congestion and communicate detours to drivers in advance. Furthermore, by analyzing multiple maps over time, the officer could spot seasonal trends, such as increased running activity in spring or summer, and adjust traffic management strategies accordingly. In emergency situations, the map provides valuable insight into which areas are most crowded with runners, enabling faster emergency response and safer route planning. Ultimately, this simple visualization transforms raw data into actionable intelligence, helping the officer make smarter, data-driven decisions that protect both runners and motorists.</p>
+                </div>
+
+                <!-- Restaurant Owner Story -->
+                <div class="story-block">
+                    <strong>🍜 Restaurant Owner's Perspective:</strong>
+                    <p style="margin-top:0.3rem;">A Thai restaurant owner in New York City could use this running map as a strategic business tool to attract more customers and increase sales. The darker lines on the map indicate areas with high runner traffic, which represent concentrations of active, health-conscious individuals who are likely to be hungry after their workouts. The restaurant owner would identify these busy running routes—particularly in and around Central Park—and consider placing a food truck, pop-up stall, or promotional signage near these high-traffic areas during peak running hours, such as early mornings or weekends. The map also helps the owner understand the flow of foot traffic, allowing them to choose a permanent restaurant location that is easily accessible to runners, perhaps near popular starting or ending points of running routes. Additionally, by observing patterns over time, the owner could adjust their menu or marketing strategy, offering post-run specials like protein-rich Thai dishes or refreshing drinks that appeal to athletes. The map even provides insights for delivery planning—if runners frequently pass by a certain area, the owner could target that neighborhood with flyers or delivery promotions. Ultimately, the running map transforms from a simple visual into a valuable guide for customer acquisition, location planning, and targeted marketing, helping the restaurant owner make informed decisions that align with the habits and needs of their potential customers.</p>
+                </div>
+            </div>
+
+            <ul>
+                <li>Your teacher will show you a <strong>running map of New York City</strong> — darker lines = more runners.</li>
+                <li>Discuss with your group — data visualization helps us make <strong>better decisions</strong>.</li>
+            </ul>
+        </div>
+
+        <!-- ACTIVITY 9.2 – explore examples -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.2</span>
+                Explore &amp; present – “Beautiful visualisations”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">20 min</span>
+            </h4>
+            <ul>
+                <li>In groups of <strong>4</strong>, visit: <a href="https://www.tableau.com/learn/articles/best-beautiful-data-visualization-examples" target="_blank" style="color:#1d6f9c;">tableau.com/learn/articles/best-beautiful-data-visualization-examples</a></li>
+                <li>Pick <strong>one</strong> visualisation that stands out to your group.</li>
+                <li>Prepare a short presentation:
+                    <ul>
+                        <li>What story is it telling?</li>
+                        <li>Why is it effective?</li>
+                        <li>What makes it beautiful or clear?</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- ACTIVITY 9.3 – Tables vs. Charts (SELF-CONTAINED)            -->
+        <!-- ============================================================ -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.3</span>
+                Tables vs. Charts – “Which one should you use?”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">15 min</span>
+            </h4>
+
+            <p style="margin-bottom:0.5rem;"><strong>When should you use a table, and when should you use a chart?</strong> The answer depends on what you want your audience to see and do with the data.</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-card table-card">
+                    <h4>📋 Use a TABLE when...</h4>
+                    <ul>
+                        <li>You need to show <strong>exact values</strong> that people need to look up or compare precisely</li>
+                        <li>You have <strong>many categories</strong> (more than 10) that would crowd a chart</li>
+                        <li>Your audience needs to <strong>read individual numbers</strong> or perform calculations</li>
+                        <li>You are presenting <strong>detailed financial data</strong>, scores, or measurements</li>
+                        <li>You want to <strong>show multiple attributes</strong> for each item side-by-side</li>
+                    </ul>
+                </div>
+                <div class="comparison-card chart-card">
+                    <h4>📊 Use a CHART when...</h4>
+                    <ul>
+                        <li>You want to <strong>show patterns, trends, or relationships</strong> in the data</li>
+                        <li>You need to <strong>compare categories</strong> quickly and visually</li>
+                        <li>Your audience needs to <strong>understand the big picture</strong> at a glance</li>
+                        <li>You want to <strong>persuade or tell a story</strong> with the data</li>
+                        <li>You are presenting to a <strong>general audience</strong> who may not need exact numbers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Real-world scenario -->
+            <div style="background: #e5f0f9; border-radius: 16px; padding: 1rem 1.4rem; margin: 0.8rem 0;">
+                <h4 style="margin-top:0; font-size:1rem;">💡 Real-world scenario</h4>
+                <p><strong>Imagine you are the principal of a school.</strong> You have data on 500 students showing:</p>
+                <ul style="margin:0.3rem 0 0 0; padding-left:1.2rem;">
+                    <li>Each student's name, grade level, and exam scores for 5 subjects</li>
+                    <li>The average score for each subject across the whole school</li>
+                </ul>
+                <p style="margin-top:0.3rem;"><strong>Question:</strong> Which would you use to tell the story, and which for detailed records?</p>
+                <div style="background:white; border-radius:12px; padding:0.8rem 1.2rem; margin-top:0.5rem; border:1px solid #dce8f2;">
+                    <strong>✅ Answer:</strong>
+                    <ul style="margin:0.2rem 0 0 0; padding-left:1.2rem;">
+                        <li><strong>Chart</strong> (bar chart or line graph) → To quickly show which subjects have the highest/lowest average scores and identify patterns.</li>
+                        <li><strong>Table</strong> → To keep a detailed record of each student's individual scores for report cards and parent meetings.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background:#e5f0f9; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem; margin-top:0.4rem; display:inline-block;">
+                💡 <strong>Key insight:</strong> Tables are for <em>exact values</em> — charts are for <em>patterns and stories</em>.
+            </div>
+        </div>
+
+        <!-- ACTIVITY 9.4 – expert groups -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.4</span>
+                Expert groups – “Master your chart”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">20 min</span>
+            </h4>
+            <ul>
+                <li>Your group will be assigned <strong>one chart type</strong>:</li>
+                <ul>
+                    <li><strong>Groups 1 &amp; 5</strong> → Pie chart</li>
+                    <li><strong>Groups 2 &amp; 6</strong> → Bar chart</li>
+                    <li><strong>Groups 3 &amp; 7</strong> → Line graph</li>
+                    <li><strong>Groups 4 &amp; 8</strong> → Scatter plot</li>
+                </ul>
+                <li>Study your chart type in <strong>Topic 4.2</strong> (Data Visualization).</li>
+                <li>Be ready to explain:
+                    <ul>
+                        <li><strong>Strengths</strong> – when is it best?</li>
+                        <li><strong>Weaknesses</strong> – when should you avoid it?</li>
+                        <li><strong>Suitability</strong> – what kind of data works well?</li>
+                    </ul>
+                </li>
+                <li>A representative from each group will be <strong>randomly selected</strong> to present to the class.</li>
+            </ul>
+        </div>
+
+        <!-- ACTIVITY 9.5 – Activity Sheet 9.1 -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.5</span>
+                Activity Sheet 9.1 – “Choose the right chart”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">25 min</span>
+            </h4>
+            <ul>
+                <li>Work in your group to complete <strong>Activity Sheet 9.1</strong>.</li>
+                <li>For each dataset, decide:
+                    <ul>
+                        <li>Which chart type is <strong>most appropriate</strong>?</li>
+                        <li><strong>Why</strong> does it work best for that data?</li>
+                    </ul>
+                </li>
+                <li>Be ready to <strong>present your answers</strong> to the class.</li>
+            </ul>
+
+            <!-- dataset table -->
+            <div style="margin-top: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
+                    <span style="background: #1d4e6f; width: 6px; height: 6px; border-radius: 20px; display: inline-block;"></span>
+                    <span style="font-weight: 600; color: #0a334a; font-size: 0.95rem;">📋 Activity 9.1 – Datasets to classify</span>
+                </div>
+                <div class="data-box">
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Dataset</th><th>What to show</th><th>Your chart choice</th><th>Reason</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>Average monthly income per household</td><td>Compare income across regions</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>2</td><td>Average annual expenditure per person</td><td>Compare spending categories</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>3</td><td>Forest fire incidents</td><td>Trend over months/years</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>4</td><td>Consumer product ratings</td><td>Distribution of ratings</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>5</td><td>O‑NET exam scores</td><td>Compare subject performance</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>6</td><td>Gold price over time</td><td>Show price fluctuation</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="background:#e2f0f9; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem; margin-top:0.2rem; display: inline-block;">
+                    📊 <strong>Tip:</strong> Bar = compare categories · Pie = parts of whole · Line = trend over time · Scatter = relationship
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- ACTIVITY 9.6 – Appropriate Visualization (SELF-CONTAINED)    -->
+        <!-- ============================================================ -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.6</span>
+                Appropriate Visualization – “What makes a visualisation effective?”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">10 min</span>
+            </h4>
+
+            <p style="margin-bottom:0.5rem;">A visualisation is <strong>"appropriate"</strong> when it successfully communicates the right message to the right audience in the clearest way possible. Here are the key principles:</p>
+
+            <!-- Principles as cards -->
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <span class="emoji">🎯</span>
+                    <strong>Clear Purpose</strong>
+                    <small>Know what story you're telling before you start.</small>
+                </div>
+                <div class="principle-card">
+                    <span class="emoji">👥</span>
+                    <strong>Know Your Audience</strong>
+                    <small>Experts need detail; general audiences need simplicity.</small>
+                </div>
+                <div class="principle-card">
+                    <span class="emoji">📊</span>
+                    <strong>Right Chart Type</strong>
+                    <small>Match the chart to the data and the message.</small>
+                </div>
+                <div class="principle-card">
+                    <span class="emoji">🎨</span>
+                    <strong>Clean &amp; Simple</strong>
+                    <small>Remove clutter. Highlight what matters.</small>
+                </div>
+                <div class="principle-card">
+                    <span class="emoji">🌈</span>
+                    <strong>Colour with Purpose</strong>
+                    <small>Use colour to guide attention, not to decorate.</small>
+                </div>
+                <div class="principle-card">
+                    <span class="emoji">📝</span>
+                    <strong>Label Clearly</strong>
+                    <small>Titles, axes, and legends should be easy to read and understand.</small>
+                </div>
+            </div>
+
+            <!-- What NOT to do -->
+            <div style="background: #fef6f6; border-radius: 16px; padding: 1rem 1.4rem; border: 1px solid #fcd0d0; margin: 0.8rem 0;">
+                <h4 style="margin-top:0; color:#a33;">⚠️ Common mistakes to avoid</h4>
+                <ul style="margin:0.3rem 0 0 0; padding-left:1.2rem;">
+                    <li><strong>Too much information</strong> – cramming too many categories or data points into one chart</li>
+                    <li><strong>Misleading scales</strong> – starting a bar chart at a value other than zero (it distorts differences!)</li>
+                    <li><strong>3D charts</strong> – they look fancy but often make data harder to read accurately</li>
+                    <li><strong>Too many colours</strong> – using rainbow colours when a simple palette would be clearer</li>
+                    <li><strong>Missing labels</strong> – not labelling axes, units, or data points</li>
+                </ul>
+            </div>
+
+            <div style="background:#e5f0f9; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem; margin-top:0.4rem; display:inline-block;">
+                💡 <strong>Key insight:</strong> The best visualisation is not the most complex — it's the one that <em>makes the data understandable</em> to your audience.
+            </div>
+        </div>
+
+        <!-- ACTIVITY 9.7 – Activity Sheet 9.2 -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.7</span>
+                Activity Sheet 9.2 – “Design your own visualisation”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">30 min</span>
+            </h4>
+            <ul>
+                <li>Choose a <strong>topic you care about</strong> (e.g., underprivileged children, climate change, sports, etc.).</li>
+                <li>Create a <strong>table</strong> with <strong>3–4 attributes</strong> and <strong>10–15 data items</strong>.</li>
+                <li>Design a <strong>visualisation</strong> that tells a clear story about your data.</li>
+                <li>Use the box below to sketch or describe your design.</li>
+            </ul>
+
+            <div style="margin-top: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
+                    <span style="background: #1d4e6f; width: 6px; height: 6px; border-radius: 20px; display: inline-block;"></span>
+                    <span style="font-weight: 600; color: #0a334a; font-size: 0.95rem;">📋 Your topic &amp; data table</span>
+                </div>
+                <div class="data-box" style="min-height:150px;">
+                    <p style="color:#4a6f89; font-style:italic;">Topic: _________________________________</p>
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Attribute 1</th><th>Attribute 2</th><th>Attribute 3</th><th>Attribute 4</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>2</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>…</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                            <tr><td>15</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td><td style="background:#fafdff;">______</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="background:#e2f0f9; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem; margin-top:0.2rem; display: inline-block;">
+                    🎨 <strong>Design your visualisation here</strong> (sketch or describe):
+                </div>
+                <div style="border: 2px dashed #cfe0ed; border-radius: 20px; padding: 2rem 1.5rem; min-height:120px; background:#fafdff; margin-top:0.3rem; color:#4a6f89; font-style:italic; text-align:center;">
+                    [ Draw or describe your chart – bar chart, line graph, scatter plot, or other ]
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVITY 9.8 – Gallery walk -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.8</span>
+                Gallery walk – “Feedback &amp; refine”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">15 min</span>
+            </h4>
+            <ul>
+                <li>Display your visualisation on the <strong>wall</strong> (or digital gallery).</li>
+                <li>Visit other groups' work and leave <strong>feedback</strong>:
+                    <ul>
+                        <li>Is the story clear?</li>
+                        <li>Is the chart type appropriate?</li>
+                        <li>What could be improved?</li>
+                    </ul>
+                </li>
+                <li>Use the feedback to <strong>refine</strong> your visualisation.</li>
+            </ul>
+        </div>
+
+        <!-- ACTIVITY 9.9 – Summary -->
+        <div class="card-activity">
+            <h4>
+                <span class="act-tag">9.9</span>
+                Wrap‑up – “How to visualise appropriately”
+                <span style="font-size:0.75rem; background:#e5f0f9; padding:0.1rem 0.8rem; border-radius:30px; font-weight:500;">5 min</span>
+            </h4>
+            <ul>
+                <li>Together with your teacher, summarise the key principles of <strong>appropriate data visualisation</strong>.</li>
+                <li>Reflect: <em>“What did you learn about telling stories with data?”</em></li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <!-- ============================================================ -->
+        <!-- 4. SUMMARY                                                   -->
+        <!-- ============================================================ -->
+        <h2>
+            📌 Summary
+            <span class="pill">key takeaways</span>
+        </h2>
+        <ul>
+            <li><strong>Data visualization</strong> transforms raw data into clear, engaging visuals.</li>
+            <li><strong>Choose the right chart</strong> for your data — bar, pie, line, or scatter.</li>
+            <li>A good visualisation tells a <strong>story</strong> and helps people <strong>make decisions</strong>.</li>
+            <li><strong>Feedback</strong> and <strong>iteration</strong> make visualisations better.</li>
+        </ul>
+
+        <!-- final -->
+        <div class="footnote">
+            <strong>✅ Ready to start?</strong> Follow the activities step by step. Work with your group, explore examples, and create your own visualisation to tell a story with data!
+        </div>
+
+        <div style="margin-top: 2rem; font-size: 0.8rem; color: #4b6f89; border-top: 1px solid #d2e2ee; padding-top: 1.2rem; text-align: center;">
+            Institute for the Promotion of Teaching Science and Technology (IPST) · Grade 11 · Computational Science
+        </div>
+
+    </div>
+    <!-- container end -->
+</body>
+</html>
